@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -30,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import riqinho.com.github.fundamentos_jetpack_compose_listas_lazy.components.GameCard
+import riqinho.com.github.fundamentos_jetpack_compose_listas_lazy.components.StudioCard
 import riqinho.com.github.fundamentos_jetpack_compose_listas_lazy.repository.getAllGames
 import riqinho.com.github.fundamentos_jetpack_compose_listas_lazy.repository.getGamesByStudio
 import riqinho.com.github.fundamentos_jetpack_compose_listas_lazy.ui.theme.FundamentosjetpackcomposelistaslazyTheme
@@ -77,6 +79,11 @@ fun GamesScreen(modifier: Modifier = Modifier) {
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
+        LazyRow {
+            items(gamesListState) {
+                StudioCard(game = it)
+            }
+        }
         LazyColumn() {
             items(gamesListState) {
                 Column() {
