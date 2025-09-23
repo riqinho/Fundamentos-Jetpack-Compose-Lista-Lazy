@@ -10,8 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import riqinho.com.github.fundamentos_jetpack_compose_listas_lazy.model.Game
+import riqinho.com.github.fundamentos_jetpack_compose_listas_lazy.ui.theme.FundamentosjetpackcomposelistaslazyTheme
 
 @Composable
 fun StudioCard(game: Game){
@@ -25,5 +27,13 @@ fun StudioCard(game: Game){
         ) {
             Text(text = game.studio)
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Studio Card Preview")
+@Composable
+fun PreviewStudioCard() {
+    FundamentosjetpackcomposelistaslazyTheme {
+        StudioCard(game = Game(1, "Example Game", "Example Studio", 2023))
     }
 }
