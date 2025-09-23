@@ -59,8 +59,9 @@ app/
 > Adicione aqui prints da tela principal, busca e filtro aplicados (opcional).
 
 ## Autor
-- Desenvolvido por Ewerton Carreira.
+- Desenvolvido por Rick Alves Domingues.
 
 ---
 
 Este projeto é um exemplo didático para estudos de Jetpack Compose e listas dinâmicas no Android.
+
