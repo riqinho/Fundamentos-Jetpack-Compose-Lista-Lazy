@@ -80,6 +80,7 @@ fun GamesScreen(modifier: Modifier = Modifier) {
                 }
             }
         )
+        Spacer(modifier = Modifier.height(16.dp))
         if (searchTextState.isNotEmpty() || gamesListState != getAllGames()) {
             Text(
                 text = "Limpar filtro",
@@ -103,11 +104,9 @@ fun GamesScreen(modifier: Modifier = Modifier) {
                 })
             }
         }
+        Spacer(modifier = Modifier.height(16.dp))
         LazyColumn() {
             items(gamesListState) {
-                Column() {
-                    Text(text = it.title)
-                }
                 GameCard(game = it)
             }
         }

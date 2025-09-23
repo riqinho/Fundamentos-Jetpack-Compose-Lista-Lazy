@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,36 +21,39 @@ import riqinho.com.github.fundamentos_jetpack_compose_listas_lazy.ui.theme.Funda
 
 @Composable
 fun GameCard(game: Game){
-    Row(verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-                .weight(3f)
+    Card(modifier = Modifier.padding(bottom = 8.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .weight(3f)
+            ) {
+                Text(
+                    text = game.title,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = game.studio,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal
+                )
+            }
             Text(
-                text = game.title,
+                text = game.releaseYear.toString(),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = game.studio,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.Blue
             )
         }
-        Text(
-            text = game.releaseYear.toString().toString(),
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Blue
-        )
     }
 }
 
