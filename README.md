@@ -1,23 +1,24 @@
-# Fundamentos Jetpack Compose Listas Lazy
+# Fundamentos Jetpack Compose – Lista Lazy
 
-Este projeto é um aplicativo Android desenvolvido em Kotlin, utilizando Jetpack Compose para a construção de interfaces modernas e reativas. O objetivo principal é demonstrar o uso de listas Lazy (LazyColumn e LazyRow) para exibir e filtrar jogos favoritos por estúdio.
+Este projeto demonstra como utilizar **LazyColumn** e **LazyRow** no Jetpack Compose, separando bem as responsabilidades entre **model**, **repository** e **components**.
 
-## Funcionalidades
+## Autores
+- Giovanna Vasques Alexandre - RM 99884
+- Rick Alves Domingues - RM 552438
+- Wemilli Nataly Lima de Oliveira - RM 552301
 
-- Exibição de uma lista de jogos favoritos.
-- Filtro de jogos por nome do estúdio, via campo de texto ou seleção direta.
-- Lista horizontal de estúdios (StudioCard) para filtro rápido.
-- Botão de limpar filtro, exibido apenas quando um filtro está ativo.
-- Interface moderna utilizando Material 3.
+## 🎯 Objetivo
+Exibir uma lista de jogos com filtros por estúdio, usando **listas performáticas (Lazy)** e componentes reutilizáveis.
 
-## Estrutura do Projeto
+---
 
+## 🗂 Estrutura do projeto
 ```
 app/
  ├── src/
  │   ├── main/
  │   │   ├── java/
- │   │   │   └── carreiras/com/github/fundamentos_jetpack_compose_listas_lazy/
+ │   │   │   └── riqinho/com/github/fundamentos_jetpack_compose_listas_lazy/
  │   │   │        ├── MainActivity.kt         # Tela principal e lógica de UI
  │   │   │        ├── components/
  │   │   │        │    ├── GameCard.kt       # Componente visual para jogos
@@ -33,35 +34,67 @@ app/
  └── ...
 ```
 
-## Como funciona
+### 📂 model
+- **Game.kt** → `data class` que define como um jogo é representado (`id`, `title`, `studio`, `releaseYear`).  
+  Serve de base para montar listas e passar os dados para os componentes.
 
-- A tela principal exibe uma lista de jogos e uma lista horizontal de estúdios.
-- O usuário pode filtrar os jogos digitando o nome do estúdio ou clicando em um StudioCard.
-- O filtro pode ser limpo facilmente com o botão "Limpar filtro".
+### 📂 repository
+- **Repository** → camada que fornece os dados.  
+  - `getAllGames()` retorna uma lista fixa de jogos (mock).  
+  - `getGamesByStudio(studio)` filtra os jogos pelo estúdio.  
 
-## Como rodar o projeto
+💡 Em um app real, aqui poderia estar a conexão com banco de dados ou API.
 
-1. Clone este repositório:
-   ```sh
-   git clone <url-do-repositorio>
-   ```
-2. Abra o projeto no Android Studio.
-3. Execute em um emulador ou dispositivo físico Android.
+### 📂 components
+- **GameCard.kt** → Componente que representa **um item da lista de jogos**.  
+  Mostra título, estúdio e ano dentro de um card. Usado na `LazyColumn`.  
 
-## Tecnologias utilizadas
-- **Kotlin**
-- **Jetpack Compose**
-- **Material 3**
-- **Gradle Kotlin DSL**
-
-## Screenshots
-
-> Adicione aqui prints da tela principal, busca e filtro aplicados (opcional).
-
-## Autor
-- Desenvolvido por Rick Alves Domingues.
+- **StudioCard.kt** → Componente que representa **um botão de filtro** (chip) de estúdios.  
+  Usado na `LazyRow`, muda de aparência quando está selecionado.
 
 ---
 
-Este projeto é um exemplo didático para estudos de Jetpack Compose e listas dinâmicas no Android.
+## 🖼️ Tela principal (MainActivity / GamesScreen)
 
+### Estado e orquestração
+- `searchTextState` → guarda o texto digitado no campo de busca.  
+- `gamesListState` → controla a lista atual exibida (filtrada ou não).  
+
+A tela reage às mudanças de estado e se recompõe automaticamente.
+
+### Campo de busca
+- Usa `OutlinedTextField` com um botão de lupa (`IconButton`).  
+- Ao clicar, chama `getGamesByStudio(searchTextState)` e atualiza a lista.
+
+### Limpar filtro
+- Exibe um texto “**Limpar filtro**” quando há busca/filtro.  
+- Ao clicar, volta para `getAllGames()`.
+
+### LazyRow – filtros horizontais
+```kotlin
+LazyRow {
+    items(gamesListState) { game ->
+        StudioCard(
+            game = game,
+            onClick = {
+                searchTextState = game.studio
+                gamesListState = getGamesByStudio(game.studio)
+            }
+        )
+    }
+}
+```
+- Lista horizontal de estúdios.
+- Ao clicar, aplica o filtro e atualiza a lista principal.
+
+### LazyColumn - Lista de games
+```Kotlin
+LazyColumn {
+    items(gamesListState) { game ->
+        GameCard(game = game)
+    }
+}
+```
+- Lista vertical que exibe os jogos filtrados.
+- Cada item é renderizado pelo componente GameCard, garantindo padronização visual.
+- Usar LazyColumn é essencial porque ela só renderiza os itens visíveis na tela, tornando a lista muito mais performática.
