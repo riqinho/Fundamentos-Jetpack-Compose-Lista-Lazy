@@ -2,6 +2,9 @@
 
 Este projeto demonstra como utilizar **LazyColumn** e **LazyRow** no Jetpack Compose, separando bem as responsabilidades entre **model**, **repository** e **components**.
 
+## Screenshots
+
+
 ## Autores
 - Giovanna Vasques Alexandre - RM 99884
 - Rick Alves Domingues - RM 552438
@@ -98,3 +101,4 @@ LazyColumn {
 - Lista vertical que exibe os jogos filtrados.
 - Cada item é renderizado pelo componente GameCard, garantindo padronização visual.
 - Usar LazyColumn é essencial porque ela só renderiza os itens visíveis na tela, tornando a lista muito mais performática.
+
