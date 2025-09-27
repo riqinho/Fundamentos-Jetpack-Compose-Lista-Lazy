@@ -3,7 +3,8 @@
 Este projeto demonstra como utilizar **LazyColumn** e **LazyRow** no Jetpack Compose, separando bem as responsabilidades entre **model**, **repository** e **components**.
 
 ## Screenshots
-
+![Tela inicial](docs/completa.png)
+![Filtro aplicado](docs/filtrada.png)
 
 ## Autores
 - Giovanna Vasques Alexandre - RM 99884
